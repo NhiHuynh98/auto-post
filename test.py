@@ -14,7 +14,12 @@ GROUP_URLS = [
 ]
 
 # The message you want to post
-POST_MESSAGE = "🚀 Đây là tin nhắn tự động, Nhi test"
+POST_MESSAGE = "🚀 Đây là tin nhắn tự động, Nhi code test"
+IMAGE_PATH = [
+    "./images/test.jpeg",
+    "./images/test_2.jpeg",
+    "./images/test_3.jpeg"
+]
 
 def auto_post_facebook():
     with sync_playwright() as p:
@@ -40,6 +45,14 @@ def auto_post_facebook():
                 post_container.wait_for(timeout=5000)
                 post_container.click()
                 time.sleep(10)
+
+                button_upload = page.locator('div[role="button"][aria-label*="Ảnh/video"]')
+                button_upload.click()
+                time.sleep(5)
+
+                file_input = page.locator('input[type="file"][accept*="image"][class="x1s85apg"][multiple]')
+                file_input.set_input_files(IMAGE_PATH)
+                time.sleep(5)
                 
                 input_box = page.locator('div[role="textbox"][aria-label*="Write"], div[role="textbox"][aria-label*="Tạo bài"], div[role="textbox"][aria-label*="viết"]')
 
